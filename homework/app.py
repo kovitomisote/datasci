@@ -2,6 +2,7 @@ import pandas as pd
 import plotly.express as px
 import streamlit as st 
 
+
 @st.cache
 def load_data():
     data = pd.read_csv("https://opendata.ecdc.europa.eu/covid19/nationalcasedeath/csv")
@@ -15,15 +16,15 @@ def convert(x):
 
 data = load_data()
 
-hun = data[data.country == 'Hungary']
-
 st.title("Covid19 National Case-Death Data")
+
+st.title("Hello World")
+country = st.selectbox('Select a country', ['Hungary', 'Belgium'])
+st.write(f'The selected country is {country}')
+st.plotly_chart(fig)
 
 countries = data['country'].unique()
 country_choice = st.sidebar.selectbox('Select the country:', countries)
 
-fig = px.line(data_frame = hun, x = 'week', y = 'cumulative_count', color = 'indicator')
+fig = px.line(data_frame = data.country, x = 'week', y = 'cumulative_count', color = 'indicator')
 st.plotly_chart(fig)
-
-
-
